@@ -38,3 +38,19 @@ class TrainerService:
     def add_schedule(self, schedule):
         self.schedules.append(schedule)
         self.save_schedules()
+    
+    def get_all_trainers(self):
+        # Kiểm tra xem danh sách trainer của bạn lưu ở biến nào thì return biến đó
+        if hasattr(self, 'trainers'):
+            return self.trainers
+        elif hasattr(self, '_trainers'):
+            return self._trainers
+        return []
+
+    def get_all_schedules(self):
+        # Kiểm tra xem danh sách lịch tập của bạn lưu ở biến nào thì return biến đó
+        if hasattr(self, 'schedules'):
+            return self.schedules
+        elif hasattr(self, '_schedules'):
+            return self._schedules
+        return []
