@@ -45,3 +45,15 @@ class MembershipService:
     def get_all_memberships(self):
         """Xem toàn bộ danh sách hội viên (Nghiệp vụ CRUD)"""
         return self.members
+    
+    def search_by_id_or_name(self, keyword: str):
+        """Tìm kiếm hội viên theo định danh Mã hoặc Tên (Yêu cầu 4.1)"""
+        result = []
+        for m in self.members:
+            if keyword.lower() in m.member_id.lower() or keyword.lower() in m.name.lower():
+                result.append(m)
+        return result
+
+    def get_members_sorted_by_name(self):
+        """Sắp xếp danh sách hội viên theo bảng chữ cái A-Z (Yêu cầu 4.1)"""
+        return sorted(self.members, key=lambda m: m.name)
