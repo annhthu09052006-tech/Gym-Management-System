@@ -12,7 +12,7 @@ from Models.schedule import Schedule
 class ManagementGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("HỆ THỐNG QUẢN LÝ TRUNG TÂM GYM ")
+        self.root.title("HỆ THỐNG QUẢN LÝ TRUNG TÂM GYM NÂNG CAO")
         self.root.geometry("1000x650")
         
         # Khởi tạo các dịch vụ tầng Services
@@ -39,7 +39,7 @@ class ManagementGUI:
         self.setup_schedule_tab()
 
     # ==========================================
-    # 1. TAB HỘI VIÊN (Đầy đủ chức năng cũ của bạn)
+    # 1. TAB HỘI VIÊN (Đầy đủ chức năng cũ )
     # ==========================================
     def setup_member_tab(self):
         main_frame = tk.Frame(self.tab_member)
@@ -174,7 +174,7 @@ class ManagementGUI:
         self.ent_id.delete(0, tk.END); self.ent_name.delete(0, tk.END); self.ent_phone.delete(0, tk.END)
 
     # ==========================================
-    # 2. TAB HUẤN LUYỆN VIÊN (Bổ sung Chức năng CLI số 7)
+    # 2. TAB HUẤN LUYỆN VIÊN 
     # ==========================================
     def setup_trainer_tab(self):
         main_frame = tk.Frame(self.tab_trainer)
@@ -223,7 +223,7 @@ class ManagementGUI:
         self.ent_t_id.delete(0, tk.END); self.ent_t_name.delete(0, tk.END); self.ent_t_spec.delete(0, tk.END)
 
     # ==========================================
-    # 3. TAB XẾP LỊCH TẬP (Bổ sung Chức năng CLI số 8)
+    # 3. TAB XẾP LỊCH TẬP 
     # ==========================================
     def setup_schedule_tab(self):
         main_frame = tk.Frame(self.tab_schedule)
