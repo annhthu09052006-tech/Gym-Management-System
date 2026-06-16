@@ -214,10 +214,6 @@ class ManagementGUI:
         except Exception as e:
             messagebox.showerror("Lỗi", f"Không thể đọc file Excel để hiển thị: {e}")
 
-        # Thêm dòng thông báo lưu trữ ở dưới cùng cửa sổ phụ
-        tk.Label(excel_win, text=f"📂 File đã được lưu vĩnh viễn tại: {path}", fg="gray", font=("Helvetica", 9, "italic")).pack(pady=10)
-    def clear_member_entries(self):
-        self.ent_id.delete(0, tk.END); self.ent_name.delete(0, tk.END); self.ent_phone.delete(0, tk.END)
 
     # ==========================================
     # 2. TAB HUẤN LUYỆN VIÊN 
