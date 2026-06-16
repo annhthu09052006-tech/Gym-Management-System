@@ -61,3 +61,14 @@ class MembershipService:
                 self.save_data()
                 return True
         return False
+    
+    def search_member(self, keyword: str):
+        """5. Search Member bằng ID hoặc Tên"""
+        result = []
+        for m in self.members:
+            if keyword.lower() in m.member_id.lower() or keyword.lower() in m.name.lower():
+                result.append(m)
+        return result
+    def sort_members_by_name(self, reverse=False):
+        """6. Sort Members theo bảng chữ cái A-Z"""
+        return sorted(self.members, key=lambda m: m.name, reverse=reverse)
