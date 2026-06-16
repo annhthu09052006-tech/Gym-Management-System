@@ -164,12 +164,58 @@ class ManagementGUI:
         self.load_member_data(self.mem_service.sort_members_by_name())
 
     def show_statistics(self):
+        # 1. Tính toán số liệu doanh thu từ Service
         stats, total = self.rep_service.get_revenue_by_tier()
-        msg = f"--- THỐNG KÊ DOANH THU ---\nThẻ Standard: {stats.get('Standard',0):,}đ\nThẻ Premium: {stats.get('Premium',0):,}đ\nThẻ VIP: {stats.get('VIP',0):,}đ\n\n💵 TỔNG: {total:,}đ\n\nXuất file CSV báo cáo?"
-        if messagebox.askyesno("Thống kê", msg):
-            path = self.rep_service.export_csv()
-            messagebox.showinfo("Thành công", f"Đã xuất file tại:\n{path}")
+        
+        # 2. Tự động xuất file báo cáo CSV (Excel) vào thư mục Data
+        path = self.rep_service.export_csv()
+        
+        # 3. Tạo một cửa sổ phụ nổi lên (Toplevel) để hiển thị bảng Excel
+        excel_win = tk.Toplevel(self.root)
+        excel_win.title("XEM TRƯỚC BẢO CÁO EXCEL (CSV)")
+        excel_win.geometry("700x400")
+        excel_win.grab_set() # Giữ cửa sổ này luôn ở trên cùng
+        
+        # Tiêu đề cửa sổ phụ
+        tk.Label(excel_win, text="DANH SÁCH XUẤT BÁO CÁO DOANH THU", font=("Helvetica", 12, "bold"), fg="green").pack(pady=10)
+        
+        # Tạo bảng Treeview để mô phỏng lại file Excel
+        cols = ("col1", "col2", "col3", "col4", "col5")
+        preview_tree = ttk.Treeview(excel_win, columns=cols, show="headings")
+        
+        preview_tree.heading("col1", text="Mã Hội Viên")
+        preview_tree.heading("col2", text="Tên Khách Hàng")
+        preview_tree.heading("col3", text="Số Điện Thoại")
+        preview_tree.heading("col4", text="Hạng Thẻ")
+        preview_tree.heading("col5", text="Giá Gói Tập (VND)")
+        
+        preview_tree.column("col1", width=100, anchor=tk.CENTER)
+        preview_tree.column("col2", width=150)
+        preview_tree.column("col3", width=110, anchor=tk.CENTER)
+        preview_tree.column("col4", width=90, anchor=tk.CENTER)
+        preview_tree.column("col5", width=130, anchor=tk.E)
+        
+        preview_tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+        
+        # 4. ĐỌC DỮ LIỆU TỪ FILE CSV VỪA XUẤT ĐỂ ĐỔ LÊN BẢNG
+        try:
+            import csv
+            with open(path, mode='r', encoding='utf-8') as f:
+                reader = csv.reader(f)
+                header = next(reader) # Bỏ qua dòng tiêu đề cột đầu tiên
+                
+                for row in reader:
+                    if row: # Nếu dòng không bị trống
+                        # Nếu gặp dòng tổng kết doanh thu ở cuối file
+                        if "TỔNG DOANH THU" in row[0]:
+                            preview_tree.insert("", tk.END, values=(row[0], "", "", "", row[4]))
+                        else:
+                            preview_tree.insert("", tk.END, values=row)
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể đọc file Excel để hiển thị: {e}")
 
+        # Thêm dòng thông báo lưu trữ ở dưới cùng cửa sổ phụ
+        tk.Label(excel_win, text=f"📂 File đã được lưu vĩnh viễn tại: {path}", fg="gray", font=("Helvetica", 9, "italic")).pack(pady=10)
     def clear_member_entries(self):
         self.ent_id.delete(0, tk.END); self.ent_name.delete(0, tk.END); self.ent_phone.delete(0, tk.END)
 
