@@ -39,7 +39,7 @@ class ManagementGUI:
         self.setup_schedule_tab()
 
     # ==========================================
-    # 1. TAB HỘI VIÊN (Đầy đủ chức năng cũ )
+    # 1. TAB HỘI VIÊN (Đầy đủ chức năng )
     # ==========================================
     def setup_member_tab(self):
         main_frame = tk.Frame(self.tab_member)
@@ -214,9 +214,14 @@ class ManagementGUI:
         except Exception as e:
             messagebox.showerror("Lỗi", f"Không thể đọc file Excel để hiển thị: {e}")
 
+        # Thêm dòng thông báo lưu trữ ở dưới cùng cửa sổ phụ
+        tk.Label(excel_win, text=f"📂 File đã được lưu vĩnh viễn tại: {path}", fg="gray", font=("Helvetica", 9, "italic")).pack(pady=10)
+
+    def clear_member_entries(self):
+        self.ent_id.delete(0, tk.END); self.ent_name.delete(0, tk.END); self.ent_phone.delete(0, tk.END)
 
     # ==========================================
-    # 2. TAB HUẤN LUYỆN VIÊN 
+    # 2. TAB HUẤN LUYỆN VIÊN )
     # ==========================================
     def setup_trainer_tab(self):
         main_frame = tk.Frame(self.tab_trainer)

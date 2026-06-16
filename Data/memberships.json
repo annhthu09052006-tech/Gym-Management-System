@@ -1,9 +1,16 @@
 [
     {
         "member_id": "HV01",
-        "name": "Nguyen Van A",
+        "name": "Nguyen Van B",
         "phone": "0981728540",
         "type": "VIP",
         "fee": 2100000.0
+    },
+    {
+        "member_id": "HV02",
+        "name": "Bui Thi B",
+        "phone": "0789424680",
+        "type": "Standard",
+        "fee": 500000
     }
 ]
