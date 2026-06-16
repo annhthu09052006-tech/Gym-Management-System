@@ -108,3 +108,5 @@ class ConsoleMenu:
                 print("❌ Lỗi đầu vào: Vui lòng nhập số, không gõ chữ tại Menu!")
             except Exception as e:
                 print(f"❌ Hệ thống phát sinh lỗi: {e}")
+                input("\n👉 Nhấn Enter để quay lại Menu...")
+                
