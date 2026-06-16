@@ -5,8 +5,8 @@ class StandardMembership(Membership):
         super().__init__(member_id, name, phone, base_price) # Kế thừa lớp cha
 
     def calculate_fee(self) -> float:
-        [span_13](start_span)return self.base_price  # Thẻ thường giữ nguyên giá gốc[span_13](end_span)
-
+        return self.base_price  # Thẻ thường giữ nguyên giá gốc
+    
     def to_dict(self) -> dict:
         return {
             "member_id": self.member_id,
